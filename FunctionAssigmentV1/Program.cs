@@ -2,15 +2,13 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+       /// <summary>
+       /// Kysyy käyttäjän nimeä ja tarkistaa että ei ole tyhjä
+       /// </summary>
+       /// <returns>Palauttaa käyttäjän antaman nimen</returns>
+        static string KysyNimi()
         {
-            // Everything is intentionally inside Main before refactoring to functions
-            //Your job is to refactor this code to use functions for better readability and reusability.
-            //Check learn on how to do this
             string name = "";
-            int age = 0;
-
-            // Ask for name and ensure it is not empty
             while (true)
             {
                 Console.Write("Enter your name: ");
@@ -21,7 +19,16 @@
                     Console.WriteLine("Name cannot be empty.");
             }
 
-            // Ask for age and ensure it is a positive integer
+            return name;
+
+        }
+        /// <summary>
+        /// Kysyy käyttäjän ikää ja tarkistaa sen postiiviseksi.
+        /// </summary>
+        /// <returns>Palauttaa positiivisen luvun.</returns>
+        static int KysyIka()
+        {
+            int age = 0;
             while (true)
             {
                 Console.Write("Enter your age: ");
@@ -31,26 +38,58 @@
                 else
                     Console.WriteLine("Please enter a positive integer.");
             }
-
-            // Print name and age
+            return age;
+        }
+        /// <summary>
+        /// Tulostaa Käyttäjän nimen ja iän
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
+        static void TulostaNimiJaIka(string name, int age)
+        {
             Console.WriteLine($"Your name is {name} and your age is {age}.");
+        }
+        /// <summary>
+        /// Tarkistaa onko käyttäjä täysi-ikäinen
+        /// </summary>
+        /// <param name="age"></param>
+        /// <returns>Palauttaa arvon</returns>
+        static bool TarkistaTaysiIkainen (int age)
+        {
+        return age >= 18;
+        }
+        /// <summary>
+        /// Vertailee käyttäjän nimeä nimeen "Matti"
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="compareTo"></param>
+        static void compareName(string name, string compareTo)
+        {
+            if (name.Equals(compareTo, StringComparison.OrdinalIgnoreCase))
+                Console.WriteLine($"Your name matches '{compareTo}' (case-insensitive).");
 
-            // Check if the user is an adult
-            if (age >= 18)
+            if (name.Equals(compareTo))
+                Console.WriteLine($"Your name is exactly '{compareTo}' (case-sensitive).");
+        }
+        static void Main(string[] args)
+        {
+       
+            string name = KysyNimi();
+            int age = KysyIka();
+            TulostaNimiJaIka(name, age);
+            bool isFullAge = TarkistaTaysiIkainen(age);
+            if (isFullAge)
+            {
                 Console.WriteLine("You are an adult.");
+            }
             else
-                Console.WriteLine("You are not an adult.");
+            { 
+                Console.WriteLine("You are not an adult."); 
+            }
 
-            // Compare the name to another string (e.g., "Matti")
-            string compareName = "Matti";
+            compareName(name, "Matti");
 
-            // Comparison ignoring case
-            if (name.Equals(compareName, StringComparison.OrdinalIgnoreCase))
-                Console.WriteLine("Your name matches 'Matti' (case-insensitive).");
 
-            // Exact match comparison (case-sensitive)
-            if (name.Equals(compareName))
-                Console.WriteLine("Your name is exactly 'Matti' (case-sensitive).");
         }
     }
 }
